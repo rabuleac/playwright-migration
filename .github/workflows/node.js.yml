@@ -27,5 +27,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Install Playwright
+      run: npx playwright install --with-dev
+    - name: run cucumber
+      run: npm test
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: Report
+        path: test-result
+        retention-days: 2
