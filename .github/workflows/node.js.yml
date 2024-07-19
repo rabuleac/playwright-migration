@@ -29,6 +29,10 @@ jobs:
     - run: npm ci
     - name: Install Playwright
       run: npx playwright install --with-dev
+    - name: Install Cucumber
+      run: npm i @cucumber/cucumber -D
+    - name: Install ts-node
+      run: npm i ts-node -D
     - name: run cucumber
       run: npm test
     - uses: actions/upload-artifact@v3
