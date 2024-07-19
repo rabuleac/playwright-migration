@@ -27,7 +27,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Install Playwright
-      run: npx playwright install --with-dev
+      run: npm init playwright@latest
     - name: Install Cucumber
       run: npm i @cucumber/cucumber -D
     - name: Install ts-node
