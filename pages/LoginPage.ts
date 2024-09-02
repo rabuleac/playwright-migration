@@ -1,32 +1,24 @@
 import { BasePage } from "./BasePage";
 
 export class LoginPage extends BasePage {
-    protected url = '/login';
-    private usernameSelector = ('input#username')
-    private passwordSelector = ('input#password')
-    private loginButtonSelector = ('//button[@type="submit"]')
-    private allertMessage = ('div[data-alert]')
+  protected url = "/login";
+  private selectors = {
+    username: "input#username",
+    password: "input#password",
+    loginButtonSelector: '//button[@type="submit"]',
+    alertMessage: "div[data-alert]",
+  };
 
-    async setUsername(username: string) {
-        return await this.page.locator(this.usernameSelector).fill(username)
-    }
+  async clickOnLoginButton() {
+    await this.page.locator(this.selectors.loginButtonSelector).click();
+  }
 
-    async setPassword(password: string) {
-        return await this.page.locator(this.passwordSelector).fill(password)
-    }
+  async getAlertMessage(): Promise<string> {
+    return this.page.locator(this.selectors.alertMessage).innerText();
+  }
 
-    async clickLoginButton() {
-        return await this.page.locator(this.loginButtonSelector).click();
-    }
-
-    async submitLoginForm(username: string, password: string) {
-        await this.setUsername(username)
-        await this.setPassword(password)
-        await this.clickLoginButton()
-    }
-
-    async getAlertMessage(): Promise<string> {
-         return this.page.locator(this.allertMessage).innerText()
-    }
-
+  async fillInput(field: "username" | "password", value: string) {
+    const selector = this.selectors[field];
+    await this.page.locator(selector).fill(value);
+  }
 }

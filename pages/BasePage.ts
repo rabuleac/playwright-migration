@@ -1,18 +1,30 @@
 import { Page } from "playwright-core";
-import { PageInstance } from "../utils/PageInstance.ts";
 
 export abstract class BasePage {
-    protected page: Page;
-    protected baseUrl = "http://the-internet.herokuapp.com";
-    protected abstract url: string;
+  protected page: Page;
+  protected abstract url: string;
 
-    constructor() {
-        this.page = PageInstance.getPage();
-    }
+  constructor(page: Page) {
+    this.page = page;
+  }
 
-    async navigateToPage(): Promise<void> {
-        await this.page.goto(`${this.baseUrl}${this.url}`);
-    }
+  async navigateToPage(): Promise<void> {
+    await this.page.goto(`${this.url}`);
+  }
 
-    getPageTitle() {}
+  async fillInput(selector: string, value: string) {
+    await this.page.locator(selector).fill(value);
+  }
+
+  async clickOn(selector: string) {
+    await this.page.locator(selector).click();
+  }
+
+  async getPageTitle(): Promise<string> {
+    return this.page.title();
+  }
+
+  async closePage(){
+    await this.page.close()
+  }
 }
