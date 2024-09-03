@@ -1,30 +1,30 @@
-import { pageFixture } from "../utiles/pageFixture";
+import { Page } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export default class LoginPage{
+export class LoginPage extends BasePage {
+  protected url = '/login';
 
-    private Elements = {
-        user_loc: "//input[@name='userName']",
-        password_loc: "//input[@name='password']",
-        submit_loc: "//input[@name='submit']"
-    }
+  private selectors = {
+    username: 'input#username',
+    password: 'input#password',
+    loginButton: '//button[@type="submit"]',
+    alertMessage: 'div[data-alert]',
+  };
 
-    async enterUserName(user: string){
-        await pageFixture.page.locator(this.Elements.user_loc).fill(user)
-        await pageFixture.logger.info("providing username")
-    }
+  constructor(page: Page) {
+    super(page);
+  }
 
-    async enterPasswrod(password: string){
-        await pageFixture.page.locator(this.Elements.password_loc).fill(password)
-        await pageFixture.logger.info("providing password")
-    }
+  async clickOnLoginButton(): Promise<void> {
+    await this.page.locator(this.selectors.loginButton).click();
+  }
 
-    async submit(){
-        await pageFixture.page.locator(this.Elements.submit_loc).click()
-        await pageFixture.logger.info("clicking submit button")
-    }
+  async getAlertMessage(): Promise<string> {
+    return this.page.locator(this.selectors.alertMessage).innerText();
+  }
 
-    async enterUserNameAndPassword(user: string, password: string){
-        await this.enterUserName(user)
-        await this.enterPasswrod(password)
-    }
+  async fillInput(field: 'username' | 'password', value: string): Promise<void> {
+    const selector = this.selectors[field];
+    await this.page.locator(selector).fill(value);
+  }
 }
