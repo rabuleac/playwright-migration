@@ -1,5 +1,6 @@
 {
     "default":{
+        "format": ["reporter.js", "html:cucumber-report.html"],
         "formateOptions":{
             "snippentInterface": "async-await"
         },

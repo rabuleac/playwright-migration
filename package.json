@@ -12,9 +12,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@cucumber/cucumber": "^10.8.0",
-    "@playwright/test": "^1.45.1",
-    "@types/node": "^20.14.10",
+    "@cucumber/cucumber": "^10.9.0",
+    "@cucumber/pretty-formatter": "^1.0.1",
+    "@playwright/test": "^1.46.1",
+    "@types/cucumber": "^6.0.1",
+    "@types/node": "^20.16.4",
+    "allure-commandline": "^2.30.0",
+    "allure-cucumberjs": "^3.0.0-beta.11",
     "cross-env": "^7.0.3",
     "ts-node": "^10.9.2"
   }
