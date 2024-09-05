@@ -14,8 +14,9 @@ BeforeAll(async function() {
 });
 
 Before(async function({ pickle }) {
-    let scenarioName = pickle.name + pickle.id;
-    context = await browser.newContext();
+    //let scenarioName = pickle.name + pickle.id;
+    await context.tracing.start({ screenshots: true, snapshots: true })
+    // context = await browser.newContext();
     //const page = await context.newPage();
     //pageFixture.page = page;
 });
@@ -26,9 +27,11 @@ AfterAll(async function() {
     await browser.close();
 });
 
+
 After(async function({ pickle, result }) {
     if (result?.status === Status.FAILED) {
-        const screenshot = await pageFixture.page?.screenshot({ path: `./test-result/screenshot/${pickle.name}.png`, type: 'png' });
+        const screenshot = await pageFixture.page?.screenshot({ path: 'traces/screenshot_' + pickle.name + '_' + new Date().toISOString().replace(/[:.]/g, '-') + '_.png' });
         await this.attach(screenshot, "image/png");
+        await context.tracing.stop({ path: 'traces/trace_' + pickle.name + '_' + new Date().toISOString().replace(/[:.]/g, '-') + '_.zip' });
     }
 });

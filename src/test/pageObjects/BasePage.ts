@@ -6,9 +6,6 @@ export abstract class BasePage {
   protected abstract url: string;
 
   constructor(page: Page) {
-    if (!page) {
-      throw new Error("Page instance is undefined");
-    }
     this.page = page;
   }
 

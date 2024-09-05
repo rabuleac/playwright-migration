@@ -11,7 +11,7 @@ Given("user navigate to page", async function () {
 });
 
 When('providing valid username and password', async function () {
-    await loginPage.fillInput("username", "tomsmith");
+    await loginPage.fillInput("username", "tomsmit");
     await loginPage.fillInput("password", "SuperSecretPassword!");
 });
 
