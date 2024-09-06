@@ -1,30 +1,26 @@
-import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class LoginPage extends BasePage {
   protected url = '/login';
 
-  private selectors = {
+  private locators = {
     username: 'input#username',
     password: 'input#password',
     loginButton: '//button[@type="submit"]',
     alertMessage: 'div[data-alert]',
   };
 
-  constructor(page: Page) {
-    super(page);
-  }
-
   async clickOnLoginButton(): Promise<void> {
-    await this.page.locator(this.selectors.loginButton).click();
+    await this.page.locator(this.locators.loginButton).click();
   }
 
   async getAlertMessage(): Promise<string> {
-    return this.page.locator(this.selectors.alertMessage).innerText();
+    return this.page.locator(this.locators.alertMessage).innerText();
   }
 
-  async fillInput(field: 'username' | 'password', value: string): Promise<void> {
-    const selector = this.selectors[field];
-    await this.page.locator(selector).fill(value);
+  async fillInput(field: keyof typeof this.locators, value: string): Promise<void> {
+    const locator = this.locators[field];
+    await this.page.locator(locator).fill(value);
   }
+
 }

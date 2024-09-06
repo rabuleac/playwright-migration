@@ -2,20 +2,25 @@ import { chromium, Browser, BrowserContext, Page } from '@playwright/test';
 import { BeforeAll, AfterAll, Before, After, Status } from '@cucumber/cucumber';
 import { pageFixture } from '../utiles/pageFixture';
 import { invokeBrowser } from './browsers';
+const {setDefaultTimeout} = require('@cucumber/cucumber');
 
 let browser: Browser;
 let context: BrowserContext;
+
+// setDefaultTimeout(60 * 1000);
 
 BeforeAll(async function() {
     browser = await invokeBrowser();
     context = await browser.newContext();
     const page = await context.newPage();
     pageFixture.page = page;
+    await context.tracing.start({ screenshots: true, snapshots: true })
 });
 
 Before(async function({ pickle }) {
+    //await context.tracing.start({ screenshots: true, snapshots: true })
+
     //let scenarioName = pickle.name + pickle.id;
-    await context.tracing.start({ screenshots: true, snapshots: true })
     // context = await browser.newContext();
     //const page = await context.newPage();
     //pageFixture.page = page;

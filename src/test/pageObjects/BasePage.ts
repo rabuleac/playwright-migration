@@ -1,3 +1,4 @@
+import { Locator } from "@playwright/test";
 import { Page } from "playwright-core";
 
 export abstract class BasePage {
@@ -7,6 +8,7 @@ export abstract class BasePage {
 
   constructor(page: Page) {
     this.page = page;
+    //console.log('Page was set to' + JSON.stringify(this.page));
   }
 
   async navigateToPage(): Promise<void> {

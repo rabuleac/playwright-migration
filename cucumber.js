@@ -3,9 +3,9 @@ const path = require("path");
 module.exports = {
   default: {
     format: [
-      //'progress-bar',
-      path.resolve(__dirname, 'reporter.js'),
-      //'summary',
+      'progress-bar',
+      //path.resolve(__dirname, "reporter.js"),
+      'summary',
     ],
     formatOptions: {
       snippetInterface: "async-await",
